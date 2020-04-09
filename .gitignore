@@ -1,5 +1,4 @@
 *.class
 /resources/*.exe
 /resources/*driver
-.classpath
 .DS_Store
