@@ -1,0 +1,4 @@
+*.class
+/resources/*.exe
+/resources/*driver
+.classpath
