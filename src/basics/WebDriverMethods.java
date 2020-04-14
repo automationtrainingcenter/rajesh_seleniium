@@ -1,5 +1,8 @@
 package basics;
 
+import java.util.List;
+import java.util.Set;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -39,11 +42,32 @@ public class WebDriverMethods {
  		 */
 		By btnLoginLoc = By.id("u_0_b");
 		WebElement btnLogin = driver.findElement(btnLoginLoc);
+//		WebElement btnLogin = driver.findElement(By.id("u_0_b"));
 		
+		/* findElements(By arg): is used to locate one or more elements within the current web page
+		 * using given locator information. This method returns a List<WebElement> reference. With given 
+		 * locator information if no element is located then this method will return a List of size 0.
+		 * It does not throw any exception.
+		 */
+		List<WebElement> images = driver.findElements(By.tagName("a"));
+		System.out.println("number of links in the page are "+images.size());
+		
+		// getWindowHandle(): is used to retrieve unique id of the current browser window or tab as a String
+		String windowId = driver.getWindowHandle();
+		System.out.println("window id is "+windowId);
+		
+		
+		// getWindowHandles(): is used to retrieve windows ids of all the browser windows or tabs opened by
+		// the driver instance
+		Set<String> windowIds = driver.getWindowHandles();
+		System.out.println("window ids are "+windowIds);
 		
 		Thread.sleep(5000);
 		// close(): is used to close the current browser window
-		driver.close();
+//		driver.close();
+		
+		// quit(): is used to close all the browser windows opened by driver instance
+		driver.quit();
 
 	}
 
