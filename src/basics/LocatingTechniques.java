@@ -1,4 +1,14 @@
 package basics;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import utilities.BrowserUtitlity;
+
 /*
 By class methods or Locating Techniques of selenium
 
@@ -73,5 +83,55 @@ className() argument
 name of the tag.
  */
 public class LocatingTechniques {
+	
+	
+	public static void main(String[] args) throws InterruptedException {
+		// launch browser
+		BrowserUtitlity.setDriverPath("chromedriver");
+		WebDriver driver = new ChromeDriver();
+		
+		
+		// navigate to a url
+		driver.get("http://www.facebook.com");
+		
+		// maximize the browser window
+		driver.manage().window().maximize();
+		
+		
+		// id(String arg)
+//		By emailLoc = By.id("email");
+//		WebElement emailEle = driver.findElement(emailLoc);
+		WebElement emailEle = driver.findElement(By.id("email"));
+		
+		
+		// name(String arg)
+		WebElement passEle = driver.findElement(By.name("pass"));
+		
+		
+		// linkText(String arg)
+		WebElement forgottenAccEle = driver.findElement(By.linkText("Forgotten account?"));
+		
+		// partialLinkText(String arg)
+		WebElement createAPageEle = driver.findElement(By.partialLinkText("Create"));
+		
+		// cssSelector(String arg)
+		WebElement loginEle = driver.findElement(By.cssSelector("input[aria-label='Log In']"));
+		
+		
+		// xpath(String arg)
+		WebElement femaleRadioEle = driver.findElement(By.xpath("//input[@value='2']"));
+		
+		// classname(String arg)
+		List<WebElement> inputTexts = driver.findElements(By.className("inputtext"));
+		System.out.println("number of input texts is "+inputTexts.size());
+		
+		// tagName(String arg)
+		List<WebElement> imgs = driver.findElements(By.tagName("img"));
+		System.out.println("number of images is "+imgs.size());
+		
+		// close the browser
+		Thread.sleep(2000);
+		driver.close();
+	}
 
 }
