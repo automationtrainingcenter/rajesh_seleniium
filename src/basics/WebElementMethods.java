@@ -1,6 +1,8 @@
 package basics;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -67,7 +69,8 @@ public class WebElementMethods {
 		// click()
 //		WebElement femaleRadioEle = driver.findElement(By.xpath("//input[@value = '1']"));
 //		femaleRadioEle.click();
-		driver.findElement(By.xpath("//input[@value='1']")).click();
+		WebElement femaleRadioEle = driver.findElement(By.xpath("//input[@value='1']"));
+		femaleRadioEle.click();
 		Thread.sleep(2000);
 		
 		
@@ -81,14 +84,55 @@ public class WebElementMethods {
 		Thread.sleep(3000);
 		
 		// submit()
-		driver.findElement(By.id("email")).submit();
+//		driver.findElement(By.id("email")).submit();
 		
+		// getText()
+		WebElement signUpEle = driver.findElement(By.name("websubmit"));
+		String signUpText = signUpEle.getText();
+		System.out.println("sing up button text is "+signUpText);
+			
+		// getTagName()
+		String signUpTagName = signUpEle.getTagName();
+		System.out.println("sing up button tag name is "+signUpTagName);
 		
+		// getAttribute(String att_name)
+		String firstNameEleType = firstNameEle.getAttribute("type");
+		System.out.println("first name element type attribute value is "+firstNameEleType);
+		
+		// getCssValue(String cssPropertyName)
+		String firstNameEleWidth = firstNameEle.getCssValue("width");
+		System.out.println("width of the first name element is "+firstNameEleWidth);
+		
+		// getSize() 
+		Dimension size = signUpEle.getSize();
+		System.out.println("sign up button width is "+size.getWidth()+" and height is "+size.getHeight());
+		
+		// getLocation()
+		Point location = signUpEle.getLocation();
+		System.out.println("sing up button is at x = "+location.getX()+" and at y = "+location.getY());
+		
+		// isDisplayed()
+		boolean reTypeEmailDisplayed = driver.findElement(By.name("reg_email_confirmation__")).isDisplayed();
+		System.out.println("re enter email address text box is dispalyed "+reTypeEmailDisplayed);
+		
+		// isEnabled()
+		boolean singUpBtnEnabled = signUpEle.isEnabled();
+		System.out.println("sign up button is enabled "+singUpBtnEnabled);
+		
+		// isSelected()
+		boolean femaleRadioBtnSelected = femaleRadioEle.isSelected();
+		System.out.println("female radio button is selected "+femaleRadioBtnSelected);
+			
 		// close the browser
 		Thread.sleep(5000);
 		driver.close();
 		
 
+	}
+
+	private static void click() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
