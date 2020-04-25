@@ -1,8 +1,5 @@
 package assignments;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /*
  * Open any browser
  * navigate to FramesDemo page url
