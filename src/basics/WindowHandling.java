@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.google.common.util.concurrent.Uninterruptibles;
 
@@ -29,8 +29,8 @@ import utilities.BrowserUtitlity;
 public class WindowHandling {
 	
 	public static void main(String[] args) {
-		BrowserUtitlity.setDriverPath("chromedriver");
-		WebDriver driver = new ChromeDriver();
+		BrowserUtitlity.setDriverPath("geckodriver");
+		WebDriver driver = new FirefoxDriver();
 		driver.get("https://learn.letskodeit.com/p/practice");
 		driver.manage().window().maximize();
 		
