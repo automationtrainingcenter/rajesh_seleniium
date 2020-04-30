@@ -22,16 +22,16 @@ public class TestDropdownListbox {
 		// create an object of CommmonUtility class
 		CommonUtility utility = new CommonUtility(driver);
 		
-		WebElement drpdwnCars = utility.locateElement("id", "carselect");
-		utility.selectDropDown(drpdwnCars, "honda");
+		WebElement drpdwnCars = utility.locateElement("id", "carselect", "Cars drop down");
+		utility.selectDropDown(drpdwnCars, "honda", "Cars drop down");
 		Uninterruptibles.sleepUninterruptibly(3, TimeUnit.SECONDS);
 		
 		
-		WebElement lstBoxFruits = utility.locateElement("id", "multiple-select-example");
-		utility.selectListBox(lstBoxFruits, "apple", "peach");
+		WebElement lstBoxFruits = utility.locateElement("id", "multiple-select-example", "Fruits list box");
+		utility.selectListBox(lstBoxFruits, "Fruits List Box", "apple", "peach");
 		Uninterruptibles.sleepUninterruptibly(3, TimeUnit.SECONDS);
 		
-		utility.unSelectListBox(lstBoxFruits, "apple", "orange");
+		utility.unSelectListBox(lstBoxFruits, "Fruits list box","apple", "orange");
 		Uninterruptibles.sleepUninterruptibly(3, TimeUnit.SECONDS);
 		
 		driver.close();

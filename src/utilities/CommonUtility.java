@@ -1,6 +1,7 @@
 package utilities;
 
 import java.util.List;
+import java.util.Set;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -50,11 +51,14 @@ public class CommonUtility {
 	 * locate an element with given locator type and locator value and returns that
 	 * element
 	 * 
-	 * @param locType
-	 * @param locValue
+	 * @param locType     id or name or cssselector or xpath or linktext or
+	 *                    partiallinktext
+	 * @param locValue    value of the given locator
+	 * @param elementName name of the element you are locating
 	 * @return WebElement
+	 * 
 	 */
-	public WebElement locateElement(String locType, String locValue) {
+	public WebElement locateElement(String locType, String locValue, String elementName) {
 		locType = locType.toLowerCase();
 		WebElement ele = null;
 		try {
@@ -81,9 +85,9 @@ public class CommonUtility {
 				System.out.println("invalid locator type");
 				break;
 			}
-			System.out.println("element located successfully with " + locType + " = " + locValue);
+			System.out.println(elementName + " located successfully with " + locType + " = " + locValue);
 		} catch (Exception e) {
-			System.out.println("unable to locate element with " + locType + " = " + locValue);
+			System.out.println("unable to locate " + elementName + " with " + locType + " = " + locValue);
 			System.out.println("element location failed due to exception " + e);
 		}
 		return ele;
@@ -92,16 +96,17 @@ public class CommonUtility {
 	/**
 	 * this method is used to type some data on an element
 	 * 
-	 * @param element in which you want to type
-	 * @param data    to type in given element
+	 * @param element     in which you want to type
+	 * @param data        to type in given element
+	 * @param elementName name of the element in which you want to type data
 	 */
-	public void type(WebElement element, String data) {
+	public void type(WebElement element, String data, String elementName) {
 		try {
 			element.clear();
 			element.sendKeys(data);
-			System.out.println(data + " typed in " + element);
+			System.out.println(data + " typed in " + elementName);
 		} catch (Exception e) {
-			System.out.println("unable to type data in " + element + " due to exception " + e);
+			System.out.println("unable to type data in " + elementName + " due to exception " + e);
 		}
 	}
 
@@ -109,23 +114,25 @@ public class CommonUtility {
 	 * click on a given element
 	 * 
 	 * @param element on which you want to click
+	 * @elementName name of the element you want to click
 	 */
-	public void click(WebElement element) {
+	public void click(WebElement element, String elementName) {
 		try {
 			element.click();
-			System.out.println("click on " + element);
+			System.out.println("clicked on " + elementName);
 		} catch (Exception e) {
-			System.out.println("unable to click on " + element + " due to exception " + e);
+			System.out.println("unable to click on " + elementName + " due to exception " + e);
 		}
 	}
 
 	/**
 	 * Select an option in a given drop down list based visible text
 	 * 
-	 * @param dropdown list element
-	 * @param option   text to select
+	 * @param dropdown    list element
+	 * @param option      text to select
+	 * @param elementName name of the drop down list
 	 */
-	public void selectDropDown(WebElement element, String optionText) {
+	public void selectDropDown(WebElement element, String optionText, String elementName) {
 		try {
 			Select selectEle = new Select(element);
 			List<WebElement> options = selectEle.getOptions();
@@ -136,23 +143,25 @@ public class CommonUtility {
 					break;
 				}
 			}
-			System.out.println(optionText + " selected in " + element);
+			System.out.println(optionText + " option selected in " + elementName);
 		} catch (Exception e) {
-			System.out.println("unable to select " + optionText + " in " + element + " due to exception " + e);
+			System.out
+					.println("unable to select " + optionText + " option in " + elementName + " due to exception " + e);
 		}
 	}
 
 	/**
 	 * select a single or multiple options of a list box
 	 * 
-	 * @param list    box element
-	 * @param options text to select
+	 * @param list        box element
+	 * @param elementName name of the list box
+	 * @param options     text to select
 	 */
-	public void selectListBox(WebElement element, String... options) {
+	public void selectListBox(WebElement element, String elementName, String... options) {
 		try {
 			if (options.length != 0) {
 				for (String option : options) {
-					selectDropDown(element, option);
+					selectDropDown(element, option, elementName);
 				}
 			} else {
 				System.out.println("no options provided");
@@ -165,10 +174,11 @@ public class CommonUtility {
 	/**
 	 * unselect a single or multiple options of a list box
 	 * 
-	 * @param list    box element
-	 * @param options text to select
+	 * @param list        box element
+	 * @param elementName name of the list box
+	 * @param options     text to select
 	 */
-	public void unSelectListBox(WebElement element, String... options) {
+	public void unSelectListBox(WebElement element, String elementName, String... options) {
 		try {
 			if (options.length != 0) {
 				Select selectEle = new Select(element);
@@ -179,14 +189,14 @@ public class CommonUtility {
 						if (text.contains(option.toLowerCase())) {
 							if (optEle.isSelected()) {
 								optEle.click();
-								System.out.println(option + " unselected in " + element);
-							}else {
-								System.out.println(option + " is not selected to unselect in " + element);
+								System.out.println(option + " option unselected in " + elementName);
+							} else {
+								System.out.println(option + " option is not selected to unselect in " + elementName);
 							}
 							break;
 						}
 					}
-					
+
 				}
 			} else {
 				System.out.println("no options provided");
@@ -195,5 +205,79 @@ public class CommonUtility {
 			System.out.println("unable to unselect multiple options due to exception " + e);
 		}
 	}
+
+	/**
+	 * switch to the frame based on frame id or name or any other attribute and
+	 * value using xpath or css
+	 * 
+	 * @param locType   either id or name or xpath or cssSelector
+	 * @param locValue  value of the given locator type
+	 * @param frameName name of the frame you want to switch to
+	 */
+	public void switchToFrame(String locType, String locValue, String frameName) {
+		try {
+			locType = locType.toLowerCase();
+			if (locType.equals("id") || locType.equals("name")) {
+				driver.switchTo().frame(locValue);
+			} else if (locType.equals("xpath") || locType.equals("cssselector")) {
+				WebElement frameEle = locateElement(locType, locValue, frameName);
+				driver.switchTo().frame(frameEle);
+			}
+			System.out.println("driver focus switched to frame " + frameName);
+		} catch (Exception e) {
+			System.out.println("unable to switch driver focus to the frame " + frameName + " due to exception " + e);
+		}
+	}
+	
+	/**
+	 * Switch to main page from any frame
+	 * @param frameName name of frame from which you switching the focus
+	 */
+	public void switchToMainPage(String frameName) {
+		try {
+			driver.switchTo().defaultContent();
+			System.out.println("driver focus switched to main page from frame "+frameName);
+		} catch (Exception e) {
+			System.out.println("switch to main page from frame "+frameName+" is failed due to exception "+e);
+		}
+	}
+	
+	/**
+	 * switch to parent frame from inner frame 
+	 * @param frameName name of the frame to which you switching the focus
+	 */
+	public void switchToParentFrame(String frameName) {
+		try {
+			driver.switchTo().parentFrame();
+			System.out.println("driver focus switched to parent frame "+frameName);
+		} catch (Exception e) {
+			System.out.println("switch to parent frame "+frameName+" failed due to exception "+e);
+		}
+	}
+	
+	/**
+	 * switch in between the windows
+	 * @param windowTitle complete or part of the window title
+	 */
+	public void switchToWindow(String windowTitle) {
+		try {
+			// retrieve the current window title
+			String currentWindowTitle = driver.getTitle();
+			windowTitle = windowTitle.toLowerCase();
+			// retrieve all the window handles or window ids
+			Set<String> windows = driver.getWindowHandles();
+			for(String window : windows) {
+				driver.switchTo().window(window);
+				String title = driver.getTitle().toLowerCase();
+				if(title.equals(windowTitle)) {
+					break;
+				}
+			}
+			System.out.println("driver focus switched to "+windowTitle+" from "+currentWindowTitle);
+		} catch (Exception e) {
+			System.out.println("switch to window "+windowTitle+" failed due to exception "+e);
+		}
+	}
+	
 
 }
