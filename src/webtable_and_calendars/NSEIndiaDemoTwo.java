@@ -3,6 +3,7 @@ package webtable_and_calendars;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
 import utilities.BrowserUtitlity;
@@ -11,7 +12,7 @@ public class NSEIndiaDemoTwo extends BrowserUtitlity {
 
 	public static void main(String[] args) {
 		// launch the browser
-		launchBrowser("firefox",
+		launchBrowser("chrome",
 				"https://www1.nseindia.com/live_market/dynaContent/live_watch/equities_stock_watch.htm");
 		sleep(5000);
 		
@@ -28,13 +29,18 @@ public class NSEIndiaDemoTwo extends BrowserUtitlity {
 			// compare first cell data with companyCode
 			if(cells.get(0).getText().equalsIgnoreCase(companyCode)) {
 				// click on the a tag which is inside that cell
-				cells.get(0).findElement(By.tagName("a")).click();
+				WebElement ele = cells.get(0).findElement(By.tagName("a"));
+				// bring company code into the view
+				((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView()", ele);
 				sleep(4000);
+				// click on that company code
+				ele.click();
+				sleep(10000);
 				break;
 			}
 		}
 		
-		closeBrowsers();
+//		closeBrowsers();
 	}
 
 }
